@@ -1,0 +1,20 @@
+name: release
+
+on: workflow_dispatch
+
+jobs:
+
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - uses: graalvm/setup-graalvm@v1
+      with:
+        java-version: '21'
+        native-image-musl: 'true'
+
+    - run: bash +x ./mvnw --batch-mode --errors -Dmaven.test.skip=true package
